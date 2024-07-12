@@ -9,7 +9,7 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
 
   // async enableShutdownHooks(app: INestApplication) {
   //   this.$on('beforeExit', async () => {
-  //     await app.close();
+  //     await app.close(); 
   //   });
   // }
   // After adding new columns , do this : npx prisma migrate dev anf then npx prisma studio 
