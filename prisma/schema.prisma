@@ -1,51 +1,58 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
-  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
 model Product {
-  id          String @id @default(cuid())
-  ref        String
+  id          String  @id @default(cuid())
+  ref         String
   designation String
   image       String
   price       Decimal
 }
 
 model Company {
-  id          String @id @default(cuid())
-  nom        String
-  ice       String
-  adress       String
-}
-model FacDevBdl {
-  id          String @id @default(cuid())
-  nom        String
-  ice       String
-  adress       String
-}
-model UserSettingss {
-  id          String @id @default(cuid())
-  userComapnyName        String
-  userComapnyLogo       String
-  userComapnyAdress       String
-  userComapnyPhone1       String
-  userComapnyPhone2       String
-  userComapnyICE       String
-  userComapnyIS       String
-  userComapnyPatente       String
-  userComapnyRC       String
-  userComapnyEmail   String
-  userComapnyCNSS  String
+  id     String @id @default(cuid())
+  nom    String
+  ice    String
+  adress String
 }
 
+model FacDevBdl {
+  id     String @id @default(cuid())
+  nom    String
+  ice    String
+  adress String
+}
+
+model UserSettingss {
+  id                 String @id @default(cuid())
+  userComapnyName    String
+  userComapnyLogo    String
+  userComapnyAdress  String
+  userComapnyPhone1  String
+  userComapnyPhone2  String
+  userComapnyICE     String
+  userComapnyIS      String
+  userComapnyPatente String
+  userComapnyRC      String
+  userComapnyEmail   String
+  userComapnyCNSS    String
+}
+
+model FactureInfo {
+  id         String @id @default(cuid())
+  numFac     String
+  dateFac    String
+  ice        String
+  adress     String
+  clientName String
+  totalTTC   Decimal
+  totalTVA   Decimal
+  totalHT    Decimal
+}

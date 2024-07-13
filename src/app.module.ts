@@ -10,9 +10,11 @@ import { userCompanyController } from './userCompany.controller';
 import { userCompanyService } from './userCompany.service';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { FactureInfoController } from './facturesInfo.controller';
+import { FactureInfoService } from './facturesInfo.service';
 @Module({
   imports:[],
-  controllers: [AppController,ProductController,ComapnyController,userCompanyController],
-  providers: [AppService, PrismaService,ProductService,CompanyService,userCompanyService],
+  controllers: [AppController,ProductController,ComapnyController,userCompanyController,FactureInfoController],
+  providers: [AppService, PrismaService,ProductService,CompanyService,userCompanyService,FactureInfoService],
 })
 export class AppModule {}

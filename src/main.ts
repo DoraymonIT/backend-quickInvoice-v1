@@ -11,30 +11,32 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('openapi', app, document);
-  await app.enableCors({
-    origin: [
-      'http://localhost:3000',
-      'https://backend-six-lime.vercel.app',
+  // await app.enableCors({
+  //   origin: [
+  //     'http://localhost:3000',
+  //     'https://backend-six-lime.vercel.app',
 
-    ],
-    methods: ['GET', 'POST','PUT','DELETE'],
-  });
+  //   ],
+  //   methods: ['GET', 'POST','PUT','DELETE'],
+  // });
  // await app.listen(3000);
 
 
 
-    app.use((req, res, next) => {
-      res.header('Access-Control-Allow-Origin', '*');
-      res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-      res.header('Access-Control-Allow-Headers', 'Content-Type, Accept');
-      next();
-  });
+  //   app.use((req, res, next) => {
+  //     res.header('Access-Control-Allow-Origin', '*');
+  //     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  //     res.header('Access-Control-Allow-Headers', 'Content-Type, Accept');
+  //     next();
+  // });
 
-  app.enableCors({
-      allowedHeaders:"*",
-      origin: "*"
-  });
+  // app.enableCors({
+  //     allowedHeaders:"*",
+  //     origin: "*"
+  // });
   await app.listen(3000);
+  // url       = env("POSTGRES_PRISMA_URL")
+  // directUrl = env("POSTGRES_URL_NON_POOLING")
 
 }
 bootstrap();
