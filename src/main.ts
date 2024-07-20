@@ -15,6 +15,7 @@ async function bootstrap() {
     origin: [
       'http://localhost:3000',
       'https://backend-six-lime.vercel.app',
+      'https://planning-notes-100.vercel.app',
 
     ],
     methods: ['GET', 'POST','PUT','DELETE','PATCH'],
@@ -37,6 +38,7 @@ async function bootstrap() {
   await app.listen(3000);
   // url       = env("POSTGRES_PRISMA_URL")
   // directUrl = env("POSTGRES_URL_NON_POOLING")
+
 
 }
 bootstrap();
