@@ -27,7 +27,7 @@ export class userCompanyService {
  
 
   async update(id: string, updateProdcutDto: UpdateuserCompanyDto) {
-    // console.log('the ID : ',id);
+    console.log('updateProdcutDto : ',updateProdcutDto);
     
     const updateTask = await prisma.userSettingss.update({
       data: updateProdcutDto,
