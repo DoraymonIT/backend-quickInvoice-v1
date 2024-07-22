@@ -12,6 +12,9 @@ export class CreateFactureInfoDto {
   readonly dateFac: string;
   @ApiProperty()
   @IsString()
+  readonly docType: string;
+  @ApiProperty()
+  @IsString()
   readonly ice: string;
   @ApiProperty()
   @IsString()

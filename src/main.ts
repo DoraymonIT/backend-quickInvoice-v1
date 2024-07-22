@@ -16,6 +16,7 @@ async function bootstrap() {
       'http://localhost:3000',
       'https://backend-six-lime.vercel.app',
       'https://planning-notes-100.vercel.app',
+      'http://localhost:4200',
 
     ],
     methods: ['GET', 'POST','PUT','DELETE','PATCH'],

@@ -12,5 +12,5 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
   //     await app.close(); 
   //   });
   // }
-  // After adding new columns , do this : npx prisma migrate dev anf then npx prisma studio 
+  // After adding new columns , do this : npx prisma migrate dev and then npx prisma studio 
 }

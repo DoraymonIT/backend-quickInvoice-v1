@@ -49,6 +49,7 @@ model FactureInfo {
   id         String @id @default(cuid())
   numFac     String
   dateFac    String
+  docType    String
   ice        String
   adress     String
   clientName String
