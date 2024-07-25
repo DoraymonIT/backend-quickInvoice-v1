@@ -35,9 +35,9 @@ export class ProductController {
 
   @Patch(':id')
   async update(
-    @Param('id') id: string,
+    @Param('id') id: any,
     @Body() updateProductDto: UpdateProductDto,
   ) {
-    return await this.productService.update(+id, updateProductDto);
+    return await this.productService.update(id, updateProductDto);
   }
 }

@@ -13,14 +13,29 @@ export class ProductService {
 
   async createProduct(createProductDto: CreateProductDto) {
     // return prisma.product.create({ data: createProductDto });
-    const createData = await prisma.product.create({
-      data: createProductDto,
-    });
-
-    return {
-      statusCode: 200,
-      data: createData,
-    };
+    try {
+      const createData = await prisma.product.create({
+        data: createProductDto,
+      });
+      return {
+        statusCode: 200,
+        data: createData,
+      };
+    } catch (e) {
+      if (e instanceof Prisma.PrismaClientKnownRequestError) {
+        // The .code property can be accessed in a type-safe manner
+        if (e.code === 'P2002') {
+          console.log(
+            'There is a unique constraint violation, a new product cannot be created with this ref',
+          );
+        }
+      }
+      throw 'There is a unique constraint violation, a new product cannot be created with this ref'
+      //   return {
+      //   statusCode: e.code,
+      //   error: 'There is a unique constraint violation, a new user cannot be created with this ref',
+      // };
+    }
   }
   async findByRef(ref: string) {
     // console.log(ref);
@@ -64,6 +79,8 @@ export class ProductService {
   }
 
   async update(id: any, updateProdcutDto: UpdateProductDto) {
+    console.log(id);
+
     const updateTask = await prisma.product.update({
       data: updateProdcutDto,
       where: {
