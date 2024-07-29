@@ -1,16 +1,36 @@
-import { Body, Controller, Get, Param, Put, Post, Patch, UseInterceptors, UploadedFile, ParseFilePipeBuilder, HttpStatus } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Put,
+  Post,
+  Patch,
+  UseInterceptors,
+  UploadedFile,
+  ParseFilePipeBuilder,
+  HttpStatus,
+  BadRequestException,
+  ParseFilePipe,
+  MaxFileSizeValidator,
+  FileTypeValidator,
+} from '@nestjs/common';
 import { userCompanyService } from './userCompany.service';
 import { CreateuserCompanyDto } from './create-userCompany.dto';
 import { UpdateuserCompanyDto } from './update-userCompany.dto';
 // import { UpdateuserCompanyDto } from './create-userCompany.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CustomUploadFileTypeValidator } from './app.validators';
+import { CloudinaryService } from './cloudinary.service';
 const MAX_PROFILE_PICTURE_SIZE_IN_BYTES = 2 * 1024 * 1024;
 const VALID_UPLOADS_MIME_TYPES = ['image/jpeg', 'image/png'];
 
 @Controller('userCompanys')
 export class userCompanyController {
-  constructor(private userCompanyService: userCompanyService) {}
+  constructor(
+    private userCompanyService: userCompanyService,
+    private cloudinaryService: CloudinaryService,
+  ) {}
 
   @Get()
   public getuserCompanys() {
@@ -31,28 +51,26 @@ export class userCompanyController {
     @Param('id') id: any,
     @Body() updateuserCompanyDto: UpdateuserCompanyDto,
   ) {
-    console.log('Before : '+id);
-    
+    console.log('Before : ' + id);
+
     return await this.userCompanyService.update(id, updateuserCompanyDto);
   }
 
-
   @Post('upload')
   @UseInterceptors(FileInterceptor('file'))
-  public async uploadFile(
+  public uploadFile(
     @UploadedFile(
-      new ParseFilePipeBuilder()
-        .addValidator(
-          new CustomUploadFileTypeValidator({
-            fileType: VALID_UPLOADS_MIME_TYPES,
-          }),
-        )
-        .addMaxSizeValidator({ maxSize: MAX_PROFILE_PICTURE_SIZE_IN_BYTES })
-        .build({ errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY }),
+      new ParseFilePipe({
+        validators: [
+          new MaxFileSizeValidator({ maxSize: 1024 * 1024 * 1024 }),
+          new FileTypeValidator({ fileType: '.(png|jpeg|jpg)' }),
+        ],
+      }),
     )
-    file,
+    file: Express.Multer.File,
   ) {
-    return "file upload successful";
-  }
+    // console.log(file);
 
+    return this.cloudinaryService.uploadImage(file);
+  }
 }
