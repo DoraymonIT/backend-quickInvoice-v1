@@ -10,6 +10,7 @@ export const cloudinaryProvider: Provider = {
       cloud_name: 'dm3fymrns',
       api_key: '686296152382839',
       api_secret: 'mdO9dofP2kvH1LsEWG-AjeBs78U',
+      secure:true
     });
   },
 };

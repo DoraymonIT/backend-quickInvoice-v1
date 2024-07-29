@@ -17,6 +17,7 @@ async function bootstrap() {
       'https://backend-six-lime.vercel.app',
       'https://planning-notes-100.vercel.app',
       'http://localhost:4200',
+      'http://res.cloudinary.com',
 
     ],
     methods: ['GET', 'POST','PUT','DELETE','PATCH'],
