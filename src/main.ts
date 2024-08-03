@@ -18,6 +18,7 @@ async function bootstrap() {
       'https://planning-notes-100.vercel.app',
       'http://localhost:4200',
       'http://res.cloudinary.com',
+      'https://res.cloudinary.com',
 
     ],
     methods: ['GET', 'POST','PUT','DELETE','PATCH'],

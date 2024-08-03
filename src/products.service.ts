@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaClient, Product, Prisma } from '@prisma/client';
 import { CreateProductDto } from './create-product.dto';
 import { UpdateProductDto } from './update-product.dto';
@@ -22,19 +22,11 @@ export class ProductService {
         data: createData,
       };
     } catch (e) {
-      if (e instanceof Prisma.PrismaClientKnownRequestError) {
-        // The .code property can be accessed in a type-safe manner
-        if (e.code === 'P2002') {
-          console.log(
-            'There is a unique constraint violation, a new product cannot be created with this ref',
-          );
-        }
-      }
-      throw 'There is a unique constraint violation, a new product cannot be created with this ref'
-      //   return {
-      //   statusCode: e.code,
-      //   error: 'There is a unique constraint violation, a new user cannot be created with this ref',
-      // };
+      throw new HttpException(
+        'There is a unique constraint violation, a new product cannot be created with this ref : ' +
+          createProductDto.ref,
+        HttpStatus.CONFLICT,
+      );
     }
   }
   async findByRef(ref: string) {

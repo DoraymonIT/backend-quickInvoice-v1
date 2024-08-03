@@ -13,4 +13,10 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
   //   });
   // }
   // After adding new columns , do this : npx prisma migrate dev and then npx prisma studio 
+  // datasource db {
+  //   provider  = "postgresql"
+  //   url       = env("POSTGRES_PRISMA_URL")
+  //   directUrl = env("POSTGRES_URL_NON_POOLING")
+  // }
+
 }

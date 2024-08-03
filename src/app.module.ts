@@ -14,8 +14,20 @@ import { FactureInfoController } from './facturesInfo.controller';
 import { FactureInfoService } from './facturesInfo.service';
 import { CloudinaryService } from './cloudinary.service';
 import { cloudinaryProvider } from './cloudinary.provider';
+import { AuthModule, jwtSecret } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
+import { AuthController } from './auth/auth.controller';
+import { AuthService } from './auth/auth.service';
+import { JwtStrategy } from './auth/jwt.strategy';
+import { JwtModule } from '@nestjs/jwt';
+import { PassportModule } from '@nestjs/passport';
 @Module({
-  imports: [],
+  imports: [UsersModule,   PassportModule,
+    JwtModule.register({
+      secret: jwtSecret,
+      signOptions: { expiresIn: '5m' }, // e.g. 30s, 7d, 24h
+    }),
+    UsersModule,],
   exports: [cloudinaryProvider],
   controllers: [
     AppController,
@@ -23,6 +35,7 @@ import { cloudinaryProvider } from './cloudinary.provider';
     ComapnyController,
     userCompanyController,
     FactureInfoController,
+    AuthController,
   ],
   providers: [
     AppService,
@@ -33,6 +46,7 @@ import { cloudinaryProvider } from './cloudinary.provider';
     FactureInfoService,
     CloudinaryService,
     cloudinaryProvider,
+    AuthService,JwtStrategy
   ],
 })
 export class AppModule {}
