@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaClient, Prisma, Company } from '@prisma/client';
 import { CreateCompanyDto } from './create-company.dto';
 
@@ -62,16 +62,33 @@ export class CompanyService {
     };
   }
 
-//   async update(id: any, updateProdcutDto: UpdateProductDto) {
-//     const updateTask = await prisma.product.update({
-//       data: updateProdcutDto,
-//       where: {
-//         id,
-//       },
-//     });
-//     return {
-//       statusCode: 200,
-//       data: updateTask,
-//     };
-//   }
+  //   async update(id: any, updateProdcutDto: UpdateProductDto) {
+  //     const updateTask = await prisma.product.update({
+  //       data: updateProdcutDto,
+  //       where: {
+  //         id,
+  //       },
+  //     });
+  //     return {
+  //       statusCode: 200,
+  //       data: updateTask,
+  //     };
+  //   }
+  async deleteCompany(id: any) {
+    try {
+      const dataCompany = await prisma.company.delete({
+        where: {
+          id,
+        },
+      });
+      return {
+        statusCode: 200,
+        data: 'Deleted ' + dataCompany,
+      };
+    } catch (e) {
+      console.log(e);
+
+      throw new HttpException(e.meta.cause, HttpStatus.NOT_FOUND);
+    }
+  }
 }

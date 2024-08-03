@@ -69,7 +69,27 @@ export class ProductService {
       data: dataProduct,
     };
   }
+  async deleteProduct(id: any) {
+    try {
+      const dataProduct = await prisma.product.delete({
+        where: {
+          id,
+        },
+      });
+      return {
+        statusCode: 200,
+        data: 'Deleted ' + dataProduct,
+      };
+    } catch (e) {
+      console.log(e);
+      
+      throw new HttpException(
+      e.meta.cause,
+        HttpStatus.NOT_FOUND
+      );
+    }
 
+  }
   // async update(id: any, updateProdcutDto: UpdateProductDto) {
   //   console.log(id);
 

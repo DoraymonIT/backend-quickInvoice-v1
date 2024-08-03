@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { CreateProductDto } from './create-product.dto';
 import { UpdateProductDto } from './update-product.dto';
 import { CompanyService } from './companies.service';
@@ -32,6 +32,10 @@ export class ComapnyController {
   @Get(':id')
   async findOne(@Param('id') id: string) {
     return await this.comanyService.findOne(id);
+  }
+  @Delete(':id')
+  async deleteProduct(@Param('id') id: string) {
+    return await this.comanyService.deleteCompany(id);
   }
 
 //   @Patch(':id')
