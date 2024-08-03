@@ -10,7 +10,7 @@ import { PrismaService } from './../prisma/prisma.service';
 import { JwtService } from '@nestjs/jwt';
 import { AuthEntity } from '../auth.entity';
 import * as bcrypt from 'bcrypt';
-import { SignUpDto } from 'src/signup.dto';
+import { SignUpDto } from '../signup.dto';
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
