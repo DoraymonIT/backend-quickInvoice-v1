@@ -41,6 +41,8 @@ async function bootstrap() {
   await app.listen(3000);
   // url       = env("POSTGRES_PRISMA_URL")
   // directUrl = env("POSTGRES_URL_NON_POOLING")
+  //   provider = "sqlite"
+  // url      = "file:./dev.db"
 
 
 }
