@@ -28,4 +28,7 @@ export class CreateFactureInfoDto {
   readonly totalTVA: number;
   @ApiProperty()
   readonly totalHT: number;
+  @ApiProperty()
+  @IsString()
+  readonly userId: string;
 }

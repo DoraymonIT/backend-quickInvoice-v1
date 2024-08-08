@@ -2,13 +2,9 @@ generator client {
   provider = "prisma-client-js"
 }
 
-
 datasource db {
-
-     provider  = "postgresql"
-     url       = env("POSTGRES_PRISMA_URL")
-     directUrl = env("POSTGRES_URL_NON_POOLING")
-
+  provider = "sqlite"
+  url      = "file:./dev.db"
 }
 
 model Product {
@@ -17,6 +13,8 @@ model Product {
   designation String
   image       String
   price       Decimal
+  userId      String
+  user        User    @relation(fields: [userId], references: [userId])
 }
 
 model Company {
@@ -24,6 +22,8 @@ model Company {
   nom    String
   ice    String
   adress String
+  userId String
+  user   User   @relation(fields: [userId], references: [userId])
 }
 
 model FacDevBdl {
@@ -33,7 +33,7 @@ model FacDevBdl {
   adress String
 }
 
-model UserSettingss {
+model UserSettings {
   id                 String @id @default(cuid())
   userComapnyName    String
   userComapnyLogo    String
@@ -46,6 +46,8 @@ model UserSettingss {
   userComapnyRC      String
   userComapnyEmail   String
   userComapnyCNSS    String
+  userId             String
+  user               User   @relation(fields: [userId], references: [userId])
 }
 
 model FactureInfo {
@@ -59,11 +61,17 @@ model FactureInfo {
   totalTTC   Decimal
   totalTVA   Decimal
   totalHT    Decimal
+  userId     String
+  user       User   @relation(fields: [userId], references: [userId])
 }
 
 model User {
-  userId    String @id @default(cuid())
+  userId    String   @id @default(cuid())
   name      String?
-  email     String    @unique
+  email     String   @unique
   password  String
+  products  Product[]
+  companies Company[]
+  settings  UserSettings[]
+  factures  FactureInfo[]
 }

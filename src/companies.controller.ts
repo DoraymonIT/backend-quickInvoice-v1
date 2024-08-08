@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { CreateProductDto } from './create-product.dto';
 import { UpdateProductDto } from './update-product.dto';
 import { CompanyService } from './companies.service';
@@ -8,9 +16,9 @@ import { CreateCompanyDto } from './create-company.dto';
 export class ComapnyController {
   constructor(private comanyService: CompanyService) {}
 
-  @Get()
-  public getProducts() {
-    return this.comanyService.getCompanies();
+  @Get('all/:userId')
+  public getProducts(@Param('userId') userId: string) {
+    return this.comanyService.getCompanies(userId);
   }
 
   // @Post()
@@ -38,11 +46,11 @@ export class ComapnyController {
     return await this.comanyService.deleteCompany(id);
   }
 
-//   @Patch(':id')
-//   async update(
-//     @Param('id') id: string,
-//     @Body() updateProductDto: UpdateProductDto,
-//   ) {
-//     return await this.comanyService.update(+id, updateProductDto);
-//   }
+  //   @Patch(':id')
+  //   async update(
+  //     @Param('id') id: string,
+  //     @Body() updateProductDto: UpdateProductDto,
+  //   ) {
+  //     return await this.comanyService.update(+id, updateProductDto);
+  //   }
 }

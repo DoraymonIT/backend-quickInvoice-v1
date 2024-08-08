@@ -39,4 +39,7 @@ export class CreateuserCompanyDto {
   @ApiProperty()
   @IsString()
   readonly userComapnyEmail: string;
+  @ApiProperty()
+  @IsString()
+  readonly userId: string;
 }

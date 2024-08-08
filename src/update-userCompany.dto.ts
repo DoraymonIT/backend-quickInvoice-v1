@@ -40,4 +40,7 @@ export class UpdateuserCompanyDto {
   @ApiProperty()
   @IsString()
   readonly userComapnyEmail: string;
+  @ApiProperty()
+  @IsString()
+  readonly userId: string;
 }

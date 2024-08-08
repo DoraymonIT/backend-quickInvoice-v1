@@ -16,4 +16,7 @@ export class CreateCompanyDto {
   @ApiProperty()
   @IsString()
   readonly adress: string;
+  @ApiProperty()
+  @IsString()
+  readonly userId: string;
 }

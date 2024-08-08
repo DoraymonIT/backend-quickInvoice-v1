@@ -39,6 +39,7 @@ async function bootstrap() {
 //     credentials: true,
 // });
   await app.listen(3000);
+  // provider  = "postgresql"
   // url       = env("POSTGRES_PRISMA_URL")
   // directUrl = env("POSTGRES_URL_NON_POOLING")
   //   provider = "sqlite"

@@ -7,8 +7,15 @@ const prisma = new PrismaClient();
 
 @Injectable()
 export class ProductService {
-  public getProducts(): Promise<Product[]> {
-    return prisma.product.findMany();
+  public getProducts(userId: string): Promise<Product[]> {
+    return prisma.product.findMany({
+      where: {
+        userId: userId,
+      },
+      include: {
+        user: true,
+      },
+    });
   }
 
   async createProduct(createProductDto: CreateProductDto) {
@@ -29,20 +36,18 @@ export class ProductService {
       );
     }
   }
-  async findByRef(ref: string) {
-    // console.log(ref);
-    // const dataProduct = await prisma.product.findFirst({
-    //   where: {
-    //     ref,
-    //   },
-    // });
+  findByRef(ref: string,userId:string) : Promise<Product> {
     return prisma.product.findFirst({
       where: {
-        ref,
+        ref: ref,
+        userId:userId
+        // ref: ref,
       },
+      
+      // include: {
+      //   user: true,
+      // },
     });
-    // statusCode: 200,
-    // data: dataProduct,
   }
   async findByDesignation(designation: string) {
     // console.log(designation);
@@ -82,13 +87,9 @@ export class ProductService {
       };
     } catch (e) {
       console.log(e);
-      
-      throw new HttpException(
-      e.meta.cause,
-        HttpStatus.NOT_FOUND
-      );
-    }
 
+      throw new HttpException(e.meta.cause, HttpStatus.NOT_FOUND);
+    }
   }
   // async update(id: any, updateProdcutDto: UpdateProductDto) {
   //   console.log(id);

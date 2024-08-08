@@ -18,4 +18,7 @@ export class CreateProductDto {
   @ApiProperty()
   @IsString()
   readonly image: string;
+  @ApiProperty()
+  @IsString()
+  readonly userId: string;
 }

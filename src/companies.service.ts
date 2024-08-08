@@ -6,8 +6,15 @@ const prisma = new PrismaClient();
 
 @Injectable()
 export class CompanyService {
-  public getCompanies(): Promise<Company[]> {
-    return prisma.company.findMany();
+  public getCompanies(userId:string): Promise<Company[]> {
+    return prisma.company.findMany({
+      where: {
+        userId: userId,
+      },
+      include: {
+        user: true,
+      },
+    });
   }
 
   async createProduct(createCompanyDto: CreateCompanyDto) {

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaClient, Prisma, UserSettingss } from '@prisma/client';
+import { PrismaClient, Prisma, UserSettings } from '@prisma/client';
 import { CreateuserCompanyDto } from './create-userCompany.dto';
 import { UpdateuserCompanyDto } from './update-userCompany.dto';
 // import { UpdateuserCompanyDto } from './update-userCompany.dto';
@@ -8,14 +8,22 @@ const prisma = new PrismaClient();
 
 @Injectable()
 export class userCompanyService {
-  public getuserCompanys(): Promise<UserSettingss[]> {
-    return prisma.userSettingss.findMany();
+  public getuserCompanys(userId: string): Promise<UserSettings> {
+    return prisma.userSettings.findFirst({
+      where: {
+        // userId: userId,
+        userId: userId,
+      },
+      include: {
+        user: true,
+      },
+    });
   }
 
   async createuserCompany(createuserCompanyDto: CreateuserCompanyDto) {
     // return prisma.userCompany.create({ data: createuserCompanyDto });
-    const createData = await prisma.userSettingss.create({
-      data: createuserCompanyDto,
+    const createData = await prisma.userSettings.create({
+      data: { ...createuserCompanyDto },
     });
 
     return {
@@ -24,16 +32,15 @@ export class userCompanyService {
     };
   }
 
- 
-
   async update(id: string, updateProdcutDto: UpdateuserCompanyDto) {
-    console.log('updateProdcutDto : ',updateProdcutDto);
-    
-    const updateTask = await prisma.userSettingss.update({
-      data: updateProdcutDto,
+    console.log('updateProdcutDto : ', updateProdcutDto);
+
+    const updateTask = await prisma.userSettings.update({
+      data: { ...updateProdcutDto },
+
       where: {
-       id:id
-      }
+        id: id,
+      },
     });
     return {
       statusCode: 200,

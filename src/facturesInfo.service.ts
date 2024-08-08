@@ -6,8 +6,15 @@ const prisma = new PrismaClient();
 
 @Injectable()
 export class  FactureInfoService {
-  public getFactureAllInfos(): Promise< FactureInfo[]> {
-    return prisma.factureInfo.findMany();
+  public getFactureAllInfos(userId:string): Promise< FactureInfo[]> {
+    return prisma.factureInfo.findMany({
+      where: {
+        userId: userId,
+      },
+      include: {
+        user: true,
+      },
+    });
   }
 
   async createFactureInfo(createFactureInfoDto: CreateFactureInfoDto) {
