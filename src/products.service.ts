@@ -36,8 +36,8 @@ export class ProductService {
       );
     }
   }
-  findByRef(ref: string,userId:string) : Promise<Product> {
-    return prisma.product.findFirst({
+  findByRef(ref: string,userId:string) : Promise<Product[]> {
+    return prisma.product.findMany({
       where: {
         ref: ref,
         userId:userId
