@@ -47,11 +47,11 @@ export class ProductController {
     return await this.productService.deleteProduct(id);
   }
 
-  // @Patch(':id')
-  // async update(
-  //   @Param('id') id: any,
-  //   @Body() updateProductDto: UpdateProductDto,
-  // ) {
-  //   return await this.productService.update(id, updateProductDto);
-  // }
+  @Patch(':id')
+  async update(
+    @Param('id') id: string,
+    @Body() updateProductDto: UpdateProductDto,
+  ) {
+    return await this.productService.update(id, updateProductDto);
+  }
 }

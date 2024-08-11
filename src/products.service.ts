@@ -91,18 +91,18 @@ export class ProductService {
       throw new HttpException(e.meta.cause, HttpStatus.NOT_FOUND);
     }
   }
-  // async update(id: any, updateProdcutDto: UpdateProductDto) {
-  //   console.log(id);
+  async update(id: any, updateProdcutDto: UpdateProductDto) {
+    console.log(id);
 
-  //   const updateTask = await prisma.product.update({
-  //     data: updateProdcutDto,
-  //     where: {
-  //       id,
-  //     },
-  //   });
-  //   return {
-  //     statusCode: 200,
-  //     data: updateTask,
-  //   };
-  // }
+    const updateTask = await prisma.product.update({
+      data: updateProdcutDto,
+      where: {
+        id,
+      },
+    });
+    return {
+      statusCode: 200,
+      data: updateTask,
+    };
+  }
 }
