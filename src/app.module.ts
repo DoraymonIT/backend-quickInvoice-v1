@@ -21,13 +21,18 @@ import { AuthService } from './auth/auth.service';
 import { JwtStrategy } from './auth/jwt.strategy';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
+import { UsersController } from './users/users.controller';
+import { UsersService } from './users/users.service';
 @Module({
-  imports: [UsersModule,   PassportModule,
+  imports: [
+    UsersModule,
+    PassportModule,
     JwtModule.register({
       secret: jwtSecret,
       signOptions: { expiresIn: '5m' }, // e.g. 30s, 7d, 24h
     }),
-    UsersModule,],
+    UsersModule,
+  ],
   exports: [cloudinaryProvider],
   controllers: [
     AppController,
@@ -36,6 +41,7 @@ import { PassportModule } from '@nestjs/passport';
     userCompanyController,
     FactureInfoController,
     AuthController,
+    UsersController,
   ],
   providers: [
     AppService,
@@ -46,7 +52,9 @@ import { PassportModule } from '@nestjs/passport';
     FactureInfoService,
     CloudinaryService,
     cloudinaryProvider,
-    AuthService,JwtStrategy
+    UsersService,
+    AuthService,
+    JwtStrategy,
   ],
 })
 export class AppModule {}

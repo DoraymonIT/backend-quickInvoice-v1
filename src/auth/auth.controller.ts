@@ -20,8 +20,8 @@ export class AuthController {
 
   @Post('register')
   @ApiOkResponse({ type: AuthEntity })
-  createUserAndRegister(@Body() {name, email, password }: SignUpDto) {
-    return this.authService.signUp(name,email, password);
+  createUserAndRegister(@Body() {name, email, password ,isActive}: SignUpDto) {
+    return this.authService.signUp(name,email, password,isActive);
   }
 
 

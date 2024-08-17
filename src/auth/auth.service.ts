@@ -48,6 +48,7 @@ export class AuthService {
     name: string,
     email: string,
     password: string,
+    isActive:boolean,
   ): Promise<{ token: string }> {
     // const { name, email, password } = signUpDto;
 
@@ -57,6 +58,7 @@ export class AuthService {
       name: name,
       email: email,
       password: hashedPassword,
+      isActive:isActive
     };
 
     await this.createUser(user);
