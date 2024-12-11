@@ -30,6 +30,7 @@ export class FactureInfoService {
     // Create related FacDevBdl records
     const facDevBdlRecords = FacDevBdl.map((product) => ({
       ...product,
+      total_ht: parseFloat(product.total_ht as unknown as string),
       factureInfoId: factureInfo.id, // Set the foreign key
     }));
 
