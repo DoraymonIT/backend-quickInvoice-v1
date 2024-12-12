@@ -15,10 +15,12 @@ export class CreateFacDevBdlDto {
   readonly qtte: string;
 
   @ApiProperty()
-  @IsNumber()
+  // @IsNumber()
+  @IsNumber({maxDecimalPlaces: 2})
   readonly pu_ht: number;
 
   @ApiProperty()
-  @IsNumber()
+  // @IsNumber()
+  @IsNumber({maxDecimalPlaces: 2})
   readonly total_ht: number;
 }

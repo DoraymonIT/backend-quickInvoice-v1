@@ -21,7 +21,7 @@ export class FactureInfoService {
 
   async createFactureInfo(createFactureInfoDto: CreateFactureInfoDto) {
     const { FacDevBdl, ...factureInfoData } = createFactureInfoDto;
-
+    
     // Create the FactureInfo record first
     const factureInfo = await prisma.factureInfo.create({
       data: factureInfoData,
@@ -30,10 +30,12 @@ export class FactureInfoService {
     // Create related FacDevBdl records
     const facDevBdlRecords = FacDevBdl.map((product) => ({
       ...product,
-      total_ht: parseFloat(product.total_ht as unknown as string),
-      pu_ht: parseFloat(product.pu_ht as unknown as string),
+      pu_ht: new Prisma.Decimal(product.pu_ht.toString().replace(',', '')),
+      total_ht: new Prisma.Decimal(product.total_ht.toString().replace(',', '')),
+    
       factureInfoId: factureInfo.id, // Set the foreign key
     }));
+
 
     await prisma.facDevBdl.createMany({
       data: facDevBdlRecords,
@@ -89,8 +91,9 @@ export class FactureInfoService {
           ref: product.ref,
           designation: product.designation,
           qtte: product.qtte,
-          pu_ht: product.pu_ht,
-          total_ht: parseFloat(product.total_ht as unknown as string),
+          pu_ht: new Prisma.Decimal(product.pu_ht.toString().replace(',', '')),
+          total_ht: new Prisma.Decimal(product.total_ht.toString().replace(',', '')),
+       
 
           factureInfoId: id,
         },
